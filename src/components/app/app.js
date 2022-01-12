@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import List from '../list';
 import AddForm from '../add-form';
+import ProductList from '../product-list';
 
 import './app.css';
 
@@ -56,6 +57,8 @@ export default () => {
       )}
 
       <AddForm onAddedTask={onAddedTask} />
+
+      <ProductList />
     </div>
   );
 };

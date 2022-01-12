@@ -7,8 +7,8 @@ import './app.css';
 
 export default () => {
   const [items, setItems] = useState([
-    { id: 1, label: 'Test 1' },
-    { id: 2, label: 'Test 2' },
+    { id: 1, label: 'Test 1', done: true },
+    { id: 2, label: 'Test 2', done: false },
   ]);
 
   const onAddedTask = (label) => {
@@ -18,14 +18,42 @@ export default () => {
       biggestId = item.id > biggestId ? item.id : biggestId;
     });
 
-    setItems([...items, { id: biggestId + 1, label: label }]);
+    setItems((items) => [
+      ...items,
+      { id: biggestId + 1, label: label, done: false },
+    ]);
+  };
+
+  const onRemove = (id) => {
+    setItems((items) => items.filter((item) => item.id !== id));
+  };
+
+  const onToggleDone = (id) => {
+    setItems((items) =>
+      items.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            done: !item.done,
+          };
+        }
+
+        return {
+          ...item,
+        };
+      })
+    );
   };
 
   return (
     <div>
       <h1>Hello StackBlitz!</h1>
 
-      <List items={items} />
+      {items.length ? (
+        <List items={items} onRemove={onRemove} onToggleDone={onToggleDone} />
+      ) : (
+        <span>Ничего не найдено</span>
+      )}
 
       <AddForm onAddedTask={onAddedTask} />
     </div>

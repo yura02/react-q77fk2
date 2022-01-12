@@ -12,8 +12,10 @@ const AddForm = ({ onAddedTask }) => {
   const onSubmitForm = (e) => {
     e.preventDefault();
 
-    onAddedTask(label);
-    setLabel('');
+    if (label) {
+      onAddedTask(label);
+      setLabel('');
+    }
   };
 
   return (
